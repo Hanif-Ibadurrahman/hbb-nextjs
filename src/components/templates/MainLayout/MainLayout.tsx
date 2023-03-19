@@ -1,30 +1,47 @@
-import Link from 'next/link';
+import Script from 'next/script';
 import { ReactNode } from 'react';
+
+import ChatBox from '@/components/organisms/ChatBox/ChatBox';
+import ControlSidebar from '@/components/organisms/ControlSidebar/ControlSidebar';
+import Footer from '@/components/organisms/Footer/Footer';
+import Header from '@/components/organisms/Header/Header';
+import Sidebar from '@/components/organisms/Sidebar/Sidebar';
+import Sticky from '@/components/organisms/Sticky/Sticky';
 
 interface Props {
   children: ReactNode;
 }
 
-const links = [
-  { slug: '/', label: 'Home' },
-  { slug: '/custom-layout', label: 'Custom layout' }
-];
-
 // This is the place responsible for wrapping your app.
 // Add here components like Footer, Nav etc.
 export const MainLayout = ({ children }: Props) => (
-  <div>
-    <header className="bg-slate-900 p-4">
-      <ul className="flex items-center gap-10 text-gray-50">
-        {links.map(({ slug, label }) => (
-          <li key={slug}>
-            <Link href={slug} className="inline-block p-2 transition-colors hover:text-green-300">
-              {label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </header>
-    <main className="bg-[#FCFCFC]">{children}</main>;
-  </div>
+  <body className="hold-transition light-skin sidebar-mini theme-primary fixed">
+    <div className="wrapper">
+      <Header />
+
+      <Sidebar />
+
+      <div className="content-wrapper">
+        <div className="container-full">{children}</div>
+      </div>
+
+      <Footer />
+
+      <ControlSidebar />
+
+      <div className="control-sidebar-bg"></div>
+    </div>
+
+    <Sticky />
+
+    <ChatBox />
+
+    <Script src="js/vendors.min.js"></Script>
+    <Script src="js/pages/chat-popup.js"></Script>
+    <Script src="assets/icons/feather-icons/feather.min.js"></Script>
+    <Script src="assets/vendor_components/apexcharts-bundle/dist/apexcharts.js"></Script>
+    <Script src="assets/vendor_components/progressbar.js-master/dist/progressbar.js"></Script>
+    <Script src="js/template.js"></Script>
+    <Script src="js/pages/dashboard2.js"></Script>
+  </body>
 );
